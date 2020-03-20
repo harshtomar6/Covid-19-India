@@ -24,7 +24,7 @@
         <div class="card gradient-1">
           <div class="card-body">
             <span class="card-title text-light">Active Cases</span><br/>
-            <span class="number"> 171 </span>
+            <span class="number"> <%= data.totalActiveCases %> </span>
           </div>
         </div>
       </div>
@@ -33,7 +33,8 @@
         <div class="card gradient-2">
           <div class="card-body">
             <span class="card-title text-light">Confirmed Cases</span><br/>
-            <span class="number">195</span>
+            <% var totalConfirmedCases = parseInt(data.totalActiveCases)+parseInt(data.totalCuredCases)+parseInt(data.totalDeathCases) %>
+            <span class="number"><%= totalConfirmedCases %> </span>
           </div>
         </div>
       </div>
@@ -42,7 +43,7 @@
         <div class="card gradient-4">
           <div class="card-body">
             <span class="card-title text-light">Recovered Cases</span><br/>
-            <span class="number">20</span>
+            <span class="number"><%= data.totalCuredCases %></span>
           </div>
         </div>
       </div>
@@ -51,7 +52,7 @@
         <div class="card gradient-3">
           <div class="card-body">
             <span class="card-title text-light">Deaths</span><br/>
-            <span class="number">4</span>
+            <span class="number"><%= data.totalDeathCases %></span>
           </div>
         </div>
       </div>
@@ -88,39 +89,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
     <script>
       var ctx = document.getElementById('myChart').getContext('2d');
-  
+      var data = '<%- JSON.stringify(data) %>'
+      data = JSON.parse(data)
+      var states = [], indianNationals = [], foreignNationals=[], cured=[], death=[]
+
+      for(var state of data.stateWise) {
+        states.push(state.state)
+        indianNationals.push(state.confirmedDomestic)
+        foreignNationals.push(state.confirmedForeign)
+        cured.push(state.cured)
+        death.push(state.death)
+      }
+      
       var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels: states,
           datasets: [{
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
+            label: 'Cured',
+            data: cured,
+            backgroundColor: 'rgba(72, 19, 128, 0.7)'
+          }, {
+            label: 'Deaths',
+            data: death,
+            backgroundColor: 'rgba(232, 240, 68, 0.7)'
+          },{
+            label: 'Total Confirmed Cases(Foreign National)',
+            data: foreignNationals,
+            backgroundColor: 'rgba(222, 113, 25, 0.7)'
+          },{
+              label: 'Total Confirmed Case (Indian National)',
+              data: indianNationals,
+              backgroundColor: 'rgba(17, 105, 121, 0.7)'
           }]
       },
       options: {
           scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero: true
-                  }
+              xAxes: [{
+                stacked: true
               }]
           }
       }

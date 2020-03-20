@@ -1,10 +1,11 @@
 // Dependencies
 const express = require('express')
 const router = express.Router();
-const { scrapWeb } = require('./../controllers/scraper');
+const { fetchLatestData } = require('./../controllers/dataController');
 
-router.get('/', (req, res) => {
-  scrapWeb()
+router.get('/latest', async (req, res) => {
+  let { err ,status , data } = await fetchLatestData()
+  res.status(status).send({ err, data })
 })
 
 module.exports = router
