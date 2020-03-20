@@ -17,7 +17,14 @@
 
   <div class="container mt-3 mb-3">
 
-    <h1 class="lead">Corona Virus (COVID-19) Outbreak in India</h1>
+    <div class="inner-container-top">
+      <button class="btn btn-outline-success">Fetch latest Data</button>
+      <small><%= new Date(data.createdAt).toDateString() %> <%= new Date(data.createdAt).toTimeString().split(' ')[0]%></small>
+    </div>
+
+    <div class="inner-container">
+      <h1 class="lead">Corona Virus (COVID-19) Outbreak in India</h1>
+    </div>
 
     <div class="row">
       <div class="col-xs-12 col-sm-4 col-md-3 mt-3 mb-3">
@@ -62,10 +69,10 @@
       State wise
     </h1>
 
-    <div class="card mt-3">
+    <div class="card mt-3 mb-5">
       <div class="card-body">
 
-        <canvas id="myChart" width="400" height="200"></canvas>
+        <canvas id="myChart" width="400" height="500"></canvas>
       </div>
     </div>
   </div>
@@ -128,7 +135,8 @@
               xAxes: [{
                 stacked: true
               }]
-          }
+          },
+          maintainAspectRatio: false
       }
   });
     </script>

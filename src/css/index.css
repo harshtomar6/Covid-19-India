@@ -7,6 +7,18 @@ body {
   background-color: #f1f2f3;
 }
 
+.inner-container { 
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.inner-container-top {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
 .card {
   color: #fff;
   border: 0;
@@ -33,4 +45,11 @@ body {
 
 .gradient-4 {
   background: linear-gradient(to left, #8e2de2, #4a00e0);
+}
+
+footer {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-top: 1px solid #aaa;
+  padding: 10px;
+  text-align: center;
 }
