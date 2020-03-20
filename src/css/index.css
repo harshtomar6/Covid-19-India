@@ -4,17 +4,23 @@
 }
 
 body {
-  background-color: #f7f8f9;
+  background-color: #f1f2f3;
 }
 
 .card {
   color: #fff;
   border: 0;
-  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3), -4px -4px 12px #fff;
+  border-radius: 10px;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.45), -4px -4px 20px #fff;
+  transition: all 0.2s;
+}
+
+.card:hover {
+  box-shadow: 8px 8px 25px rgba(0, 0, 0, 0.5);
 }
 
 .gradient-1 {
-  background: linear-gradient(to right, #eb3349, #f45c43);
+  background: linear-gradient(to right, #23074d, #cc5333);
 }
 
 .gradient-2 {
@@ -26,5 +32,5 @@ body {
 }
 
 .gradient-4 {
-  background: linear-gradient(to right, #8e2de2, #4a00e0);
+  background: linear-gradient(to left, #8e2de2, #4a00e0);
 }

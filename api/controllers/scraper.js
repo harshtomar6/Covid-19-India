@@ -19,6 +19,12 @@ function scrapWeb() {
     console.log(totalCuredCases)
     console.log(totalDeathCases)
 
+    let tableRow = $('body > div:nth-child(3) > div > div > div > ol > strong > strong > strong > strong > div > table').text()
+    let tableRowArr = tableRow.trim().split('\n')
+    
+    for(let arr of tableRowArr)
+      console.log(arr.trim())
+
   })
 }
 
