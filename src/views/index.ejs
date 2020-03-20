@@ -18,10 +18,10 @@
   <div class="container mt-3 mb-3">
 
     <div class="inner-container-top">
-      <button class="btn btn-outline-success">Fetch latest Data</button>
+      <button class="btn btn-outline-success" id="fetch-latest">Fetch latest Data</button>
       <small><%= new Date(data.createdAt).toDateString() %> <%= new Date(data.createdAt).toTimeString().split(' ')[0]%></small>
     </div>
-
+    <br/>
     <div class="inner-container">
       <h1 class="lead">Corona Virus (COVID-19) Outbreak in India</h1>
     </div>
@@ -78,6 +78,26 @@
   </div>
 
   <%- include('./../partials/footer.ejs') %>
+  <script>
+    var fetchLatestBtn = document.getElementById('fetch-latest');
+
+    fetchLatestBtn.onclick = function(){
+      fetchLatestBtn.innerHTML = '<div class="spinner-border text-success"></div>'
+      fetch('/scrap/latest')
+        .then(res => res.json())
+        .then(res => {
+          // fetchLatestBtn.innerHTML = 'Fetch latest data'
+          if(res.err)
+            alert('Error in fetching data')
+          else {
+            window.location.reload()
+          }
+          
+        })
+        .catch(err => alert('Error in fetching data'))
+    }
+  </script>
+
   <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
       integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
