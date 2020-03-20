@@ -1,0 +1,30 @@
+.number {
+  font-weight: 800;
+  font-size: 4rem;
+}
+
+body {
+  background-color: #f7f8f9;
+}
+
+.card {
+  color: #fff;
+  border: 0;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3), -4px -4px 12px #fff;
+}
+
+.gradient-1 {
+  background: linear-gradient(to right, #eb3349, #f45c43);
+}
+
+.gradient-2 {
+  background: linear-gradient(to right, #1a2980, #26d0ce);
+}
+
+.gradient-3 {
+  background: linear-gradient(to right, #f12711, #f5af19);
+}
+
+.gradient-4 {
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
+}
