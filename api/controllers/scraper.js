@@ -11,19 +11,19 @@ function scrapWeb() {
       if(error) return reject(error)
       
       let $ = cheerio.load(html);
-      let totalPassengersScreened = $('body > div:nth-child(3) > div > div > div > ol > li > p > strong').text().split(':')[1].trim()
-      let totalActiveCases = $('body > div:nth-child(3) > div > div > div > ol > p > strong').text().split(':')[1].trim()
-      let curedCases = $('body > div:nth-child(3) > div > div > div > ol > strong > p > strong').text().split(':')[1].trim()
-      let migratedCases = $('body > div:nth-child(3) > div > div > div > ol > strong > strong > p > strong').text().split(':')[1].trim()
+      let totalPassengersScreened = $('body > div.main-section > div > div > div.contribution > div.information_block > div > div:nth-child(1) > div > span').text()
+      let totalActiveCases = $('body > div.main-section > div > div > div.contribution > div.information_block > div > div:nth-child(2) > div > span').text()
+      let curedCases = $('body > div.main-section > div > div > div.contribution > div.information_block > div > div:nth-child(3) > div > span').text()
+      let migratedCases = $('body > div.main-section > div > div > div.contribution > div.information_block > div > div:nth-child(5) > div > span').text()
       let totalCuredCases = parseInt(curedCases)+parseInt(migratedCases)
-      let totalDeathCases = $('body > div:nth-child(3) > div > div > div > ol > strong > strong > strong > p > strong').text().split(':')[1].trim()
+      let totalDeathCases = $('body > div.main-section > div > div > div.contribution > div.information_block > div > div:nth-child(4) > div > span').text()
       
       // console.log(totalPassengersScreened)
       // console.log(totalActiveCases)
       // console.log(totalCuredCases)
       // console.log(totalDeathCases)
       
-      let tableRow = $('body > div:nth-child(3) > div > div > div > ol > strong > strong > strong > strong > div > table').text()
+      let tableRow = $('body > div.main-section > div > div > div.contribution > div.content.newtab > div > table').text()
       let tableRowArr = tableRow.trim().split('\n')
       let sanitizedArr = [];    
       for(let arr of tableRowArr) {
