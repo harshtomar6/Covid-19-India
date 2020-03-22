@@ -23,7 +23,7 @@ function scrapWeb() {
       // console.log(totalCuredCases)
       // console.log(totalDeathCases)
       
-      let tableRow = $('body > div.main-section > div > div > div.contribution > div.content.newtab > div > table').text()
+      let tableRow = $('body > div.main-section > div > div > div.contribution > strong > div.content.newtab > div > table').text()
       let tableRowArr = tableRow.trim().split('\n')
       let sanitizedArr = [];    
       for(let arr of tableRowArr) {
