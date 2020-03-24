@@ -10,20 +10,20 @@ function scrapWeb() {
     request(url, (error, response, html) => {
       if(error) return reject(error)
       
-      let $ = cheerio.load(html);
-      let totalPassengersScreened = $('body > div.main-section > div > div > div.contribution > div.information_block > div > div:nth-child(1) > div > span').text()
-      let totalActiveCases = $('body > div.main-section > div > div > div.contribution > div.information_block > div > div:nth-child(2) > div > span').text()
-      let curedCases = $('body > div.main-section > div > div > div.contribution > div.information_block > div > div:nth-child(3) > div > span').text()
-      let migratedCases = $('body > div.main-section > div > div > div.contribution > div.information_block > div > div:nth-child(5) > div > span').text()
+      let $ = cheerio.load(html);  
+      let totalPassengersScreened = $('body > div.main-section > div > div.contribution.col-sm-9 > div > div > div:nth-child(1) > div > span').text()
+      let totalActiveCases = $('body > div.main-section > div > div.contribution.col-sm-9 > div > div > div:nth-child(2) > div > span').text()
+      let curedCases = $('body > div.main-section > div > div.contribution.col-sm-9 > div > div > div:nth-child(3) > div > span').text()
+      let migratedCases = $('body > div.main-section > div > div.contribution.col-sm-9 > div > div > div:nth-child(5) > div > span').text()
       let totalCuredCases = parseInt(curedCases)+parseInt(migratedCases)
-      let totalDeathCases = $('body > div.main-section > div > div > div.contribution > div.information_block > div > div:nth-child(4) > div > span').text()
+      let totalDeathCases = $('body > div.main-section > div > div.contribution.col-sm-9 > div > div > div:nth-child(4) > div > span').text()
       
       // console.log(totalPassengersScreened)
       // console.log(totalActiveCases)
       // console.log(totalCuredCases)
       // console.log(totalDeathCases)
       
-      let tableRow = $('body > div.main-section > div > div > div.contribution > strong > div.content.newtab > div > table').text()
+      let tableRow = $('#cases > div > div > table').text()
       let tableRowArr = tableRow.trim().split('\n')
       let sanitizedArr = [];    
       for(let arr of tableRowArr) {
