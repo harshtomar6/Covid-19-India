@@ -24,6 +24,7 @@ function scrapWeb() {
       // console.log(totalDeathCases)
       
       let tableRow = $('#cases > div > div > table').text()
+      // console.log(tableRow)
       let tableRowArr = tableRow.trim().split('\n')
       let sanitizedArr = [];    
       for(let arr of tableRowArr) {
@@ -34,7 +35,8 @@ function scrapWeb() {
       let dataObj = []
       
       sanitizedArr.splice(0, 6)
-      sanitizedArr.splice(sanitizedArr.length-5, 5)
+      sanitizedArr.splice(sanitizedArr.length-6, 6)
+      // console.log(sanitizedArr[sanitizedArr.length-1])
       
       for(let i=0;i<sanitizedArr.length;i++) {
         if(i%6 === 0)
@@ -47,6 +49,7 @@ function scrapWeb() {
           death: sanitizedArr[i+5]
         })
       }
+      // console.log(dataObj)
       resolve ({
         totalPassengersScreened,
         totalActiveCases,
