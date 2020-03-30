@@ -34,19 +34,18 @@ function scrapWeb() {
       }
       let dataObj = []
       
-      sanitizedArr.splice(0, 6)
-      sanitizedArr.splice(sanitizedArr.length-6, 6)
+      sanitizedArr.splice(0, 5)
+      sanitizedArr.splice(sanitizedArr.length-4, 4)
       // console.log(sanitizedArr[sanitizedArr.length-1])
       
       for(let i=0;i<sanitizedArr.length;i++) {
-        if(i%6 === 0)
+        if(i%5 === 0)
         dataObj.push({
           sNo: sanitizedArr[i],
           'state': sanitizedArr[i+1],
           confirmedDomestic: sanitizedArr[i+2],
-          confirmedForeign: sanitizedArr[i+3],
-          cured: sanitizedArr[i+4],
-          death: sanitizedArr[i+5]
+          cured: sanitizedArr[i+3],
+          death: sanitizedArr[i+4]
         })
       }
       // console.log(dataObj)

@@ -11,7 +11,6 @@ const dataSchema = new Schema({
     sNo: { type: String, required: true },
     state: { type: String, required: true },
     confirmedDomestic: { type: String, required: true },
-    confirmedForeign: { type: String, required: true },
     cured: { type: String, required: true },
     death: { type: String, required: true }
   }],
