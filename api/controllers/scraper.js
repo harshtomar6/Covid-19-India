@@ -35,7 +35,7 @@ function scrapWeb() {
       let dataObj = []
       
       sanitizedArr.splice(0, 5)
-      sanitizedArr.splice(sanitizedArr.length-4, 4)
+      sanitizedArr.splice(sanitizedArr.length-5, 5)
       // console.log(sanitizedArr[sanitizedArr.length-1])
       
       for(let i=0;i<sanitizedArr.length;i++) {
