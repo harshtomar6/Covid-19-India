@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const dataSchema = new Schema({
-  totalPassengersScreened: { type: String, required: true },
   totalActiveCases: { type: String, required: true },
   totalCuredCases: { type: String, required: true },
   totalDeathCases: { type: String, required: true },
