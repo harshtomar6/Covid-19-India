@@ -1,104 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
-  <link rel="stylesheet" href="../css/index.css" />
-  <title>Corona Virus Outbreak</title>
-</head>
-<body>
-  <%- include('./../partials/header.ejs') %>
+    <link rel="stylesheet" href="../css/index.css" />
+    <title>Corona Virus Outbreak</title>
+  </head>
+  <body>
+    <%- include('./../partials/header.ejs') %>
 
-  <div class="container mt-3 mb-3">
+    <div class="container mt-3 mb-3">
+      <div class="inner-container-top">
+        <button class="btn btn-outline-success" id="fetch-latest">
+          Fetch latest Data
+        </button>
+        <small
+          ><%= new Date(data.createdAt).toDateString() %> <%= new
+          Date(data.createdAt).toTimeString().split(' ')[0]%></small
+        >
+      </div>
+      <br />
+      <div class="inner-container">
+        <h1 class="lead">Corona Virus (COVID-19) Outbreak in India</h1>
+      </div>
 
-    <div class="inner-container-top">
-      <button class="btn btn-outline-success" id="fetch-latest">Fetch latest Data</button>
-      <small><%= new Date(data.createdAt).toDateString() %> <%= new Date(data.createdAt).toTimeString().split(' ')[0]%></small>
-    </div>
-    <br/>
-    <div class="inner-container">
-      <h1 class="lead">Corona Virus (COVID-19) Outbreak in India</h1>
-    </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3 mt-3 mb-3">
+          <div class="card gradient-1">
+            <div class="card-body">
+              <span class="card-title text-light">Active Cases</span><br />
+              <span class="number"> <%= data.totalActiveCases %> </span>
+            </div>
+          </div>
+        </div>
 
-    <div class="row">
-      <div class="col-xs-12 col-sm-4 col-md-3 mt-3 mb-3">
-        <div class="card gradient-1">
-          <div class="card-body">
-            <span class="card-title text-light">Active Cases</span><br/>
-            <span class="number"> <%= data.totalActiveCases %> </span>
+        <div class="col-xs-12 col-sm-4 col-md-3 mt-3 mb-3">
+          <div class="card gradient-2">
+            <div class="card-body">
+              <span class="card-title text-light">Confirmed Cases</span><br />
+              <% var totalConfirmedCases =
+              parseInt(data.totalActiveCases)+parseInt(data.totalCuredCases)+parseInt(data.totalDeathCases)
+              %>
+              <span class="number"><%= totalConfirmedCases %> </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-4 col-md-3 mt-3 mb-3">
+          <div class="card gradient-4">
+            <div class="card-body">
+              <span class="card-title text-light">Recovered Cases</span><br />
+              <span class="number"><%= data.totalCuredCases %></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-4 col-md-3 mt-3 mb-3">
+          <div class="card gradient-3">
+            <div class="card-body">
+              <span class="card-title text-light">Deaths</span><br />
+              <span class="number"><%= data.totalDeathCases %></span>
+            </div>
           </div>
         </div>
       </div>
+      <br />
+      <h1 class="lead">
+        State wise
+      </h1>
 
-      <div class="col-xs-12 col-sm-4 col-md-3 mt-3 mb-3">
-        <div class="card gradient-2">
-          <div class="card-body">
-            <span class="card-title text-light">Confirmed Cases</span><br/>
-            <% var totalConfirmedCases = parseInt(data.totalActiveCases)+parseInt(data.totalCuredCases)+parseInt(data.totalDeathCases) %>
-            <span class="number"><%= totalConfirmedCases %> </span>
-          </div>
+      <div class="card mt-3 mb-3">
+        <div class="card-body">
+          <canvas id="myChart" width="400" height="500"></canvas>
         </div>
       </div>
+      <br />
+      <h1 class="lead">
+        Trend
+      </h1>
 
-      <div class="col-xs-12 col-sm-4 col-md-3 mt-3 mb-3">
-        <div class="card gradient-4">
-          <div class="card-body">
-            <span class="card-title text-light">Recovered Cases</span><br/>
-            <span class="number"><%= data.totalCuredCases %></span>
-          </div>
+      <!-- <div class="card mt-3 mb-5">
+        <div class="card-body">
+          <canvas id="myChart2" width="400" height="500"></canvas>
         </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-4 col-md-3 mt-3 mb-3">
-        <div class="card gradient-3">
-          <div class="card-body">
-            <span class="card-title text-light">Deaths</span><br/>
-            <span class="number"><%= data.totalDeathCases %></span>
-          </div>
-        </div>
-      </div>
+      </div> -->
     </div>
-    <br/>
-    <h1 class="lead">
-      State wise
-    </h1>
 
-    <div class="card mt-3 mb-5">
-      <div class="card-body">
+    <%- include('./../partials/footer.ejs') %>
+    <script>
+      var fetchLatestBtn = document.getElementById("fetch-latest");
 
-        <canvas id="myChart" width="400" height="500"></canvas>
-      </div>
-    </div>
-  </div>
+      fetchLatestBtn.onclick = function () {
+        fetchLatestBtn.innerHTML =
+          '<div class="spinner-border text-success"></div>';
+        fetch("/scrap/latest")
+          .then((res) => res.json())
+          .then((res) => {
+            // fetchLatestBtn.innerHTML = 'Fetch latest data'
+            if (res.err) alert("Error in fetching data");
+            else {
+              window.location.reload();
+            }
+          })
+          .catch((err) => alert("Error in fetching data"));
+      };
+    </script>
 
-  <%- include('./../partials/footer.ejs') %>
-  <script>
-    var fetchLatestBtn = document.getElementById('fetch-latest');
-
-    fetchLatestBtn.onclick = function(){
-      fetchLatestBtn.innerHTML = '<div class="spinner-border text-success"></div>'
-      fetch('/scrap/latest')
-        .then(res => res.json())
-        .then(res => {
-          // fetchLatestBtn.innerHTML = 'Fetch latest data'
-          if(res.err)
-            alert('Error in fetching data')
-          else {
-            window.location.reload()
-          }
-          
-        })
-        .catch(err => alert('Error in fetching data'))
-    }
-  </script>
-
-  <script
+    <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
       integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
       crossorigin="anonymous"
@@ -115,46 +129,69 @@
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
     <script>
-      var ctx = document.getElementById('myChart').getContext('2d');
-      var data = '<%- JSON.stringify(data) %>'
-      data = JSON.parse(data)
-      var states = [], indianNationals = [], foreignNationals=[], cured=[], death=[]
+      var ctx = document.getElementById("myChart").getContext("2d");
+      var data = '<%- JSON.stringify(data) %>';
+      data = JSON.parse(data);
+      var states = [],
+        indianNationals = [],
+        foreignNationals = [],
+        cured = [],
+        death = [];
 
-      for(var state of data.stateWise) {
-        states.push(state.state)
-        indianNationals.push(state.confirmedDomestic)
-        foreignNationals.push(state.confirmedForeign)
-        cured.push(state.cured)
-        death.push(state.death)
+      for (var state of data.stateWise) {
+        states.push(state.state);
+        indianNationals.push(state.confirmedDomestic);
+        foreignNationals.push(state.confirmedForeign);
+        cured.push(state.cured);
+        death.push(state.death);
       }
-      
+
       var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
+        type: "bar",
+        data: {
           labels: states,
-          datasets: [{
-            label: 'Cured',
-            data: cured,
-            backgroundColor: 'rgba(72, 19, 128, 0.7)'
-          }, {
-            label: 'Deaths',
-            data: death,
-            backgroundColor: 'rgba(232, 240, 68, 0.7)'
-          },{
-              label: 'Total Confirmed Case (Indian National)',
+          datasets: [
+            {
+              label: "Cured",
+              data: cured,
+              backgroundColor: "rgba(72, 19, 128, 0.7)",
+            },
+            {
+              label: "Deaths",
+              data: death,
+              backgroundColor: "rgba(232, 240, 68, 0.7)",
+            },
+            {
+              label: "Total Confirmed Case (Indian National)",
               data: indianNationals,
-              backgroundColor: 'rgba(17, 105, 121, 0.7)'
-          }]
-      },
-      options: {
+              backgroundColor: "rgba(17, 105, 121, 0.7)",
+            },
+          ],
+        },
+        options: {
           scales: {
-              xAxes: [{
-                stacked: true
-              }]
+            xAxes: [
+              {
+                stacked: true,
+              },
+            ],
           },
-          maintainAspectRatio: false
-      }
-  });
+          maintainAspectRatio: false,
+        },
+      });
     </script>
-</body>
+
+    <script>
+      var ctx2 = document.getElementById("myChart2").getContext("2d");
+      
+
+      var myChar2 = new Chart(ctx2, {
+        type: 'line',
+        data: {
+          label: 'Trend',
+          data: [1, 2, 4]
+        }
+      })
+    </script>
+  </body>
 </html>
